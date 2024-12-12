@@ -146,12 +146,12 @@ async def start_likes(likes_uid):
 
         results = [result for result in results if result]
         
-        return jsonify({'msg': 'Done Sent Likes.', 'results': results})
+        return jsonify({'msg': 'Account l will send 100 liks soon. Telegram Dev @V1P_YK and @BL_RX', 'results': results})
     
     except Exception as e:
         return jsonify({'error': str(e)})
 
-@app.route('/getlikes/<int:id>')
+@app.route('/likes/<int:id>')
 async def checkband(id):
     likes_uid = id
     try:
