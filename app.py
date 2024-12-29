@@ -9,20 +9,20 @@ from byte import *
 app = Flask(__name__)
 
 async def like(token, id):
-    url = 'https://202.81.99.18/LikeProfile'
+    url = 'https://clientbp.ggblueshark.com/LikeProfile'
     headers = {
-        'X-Unity-Version': '2018.4.11f1',
-        'ReleaseVersion': 'OB46',
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer {token}',
+        'X-Unity-Version': '2018.4.11f',
         'X-GA': 'v1 1',
-        'Authorization': f'Bearer {token}',
+        'ReleaseVersion': 'OB47',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Length': '16',
-        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 7.1.2; ASUS_Z01QD Build/QKQ1.190825.002)',
+        'User-Agent': 'Dalvik/2.1.0(Linux; U; Android 9; Redmi Note 5 MIUI/V11.0.3.0.PEIMIXM)',
         'Host': 'clientbp.ggblueshark.com',
-        'Connection': 'Keep-Alive',
-        'Accept-Encoding': 'gzip'
+        'Accept-Encoding': 'gzip',
     }
-    data = bytes.fromhex(encrypt_api(f'08{Encrypt_ID(id)}12024d45'))
+    data = bytes.fromhex('00B4D874A6A47338B682C7F878D6501F')
+
     async with httpx.AsyncClient(verify=False) as client:
         try:
             response = await client.post(url, headers=headers, data=data)
@@ -45,19 +45,16 @@ async def TOKEN_MAKER(OLD_ACCESS_TOKEN, NEW_ACCESS_TOKEN, OLD_OPEN_ID, NEW_OPEN_
 
     URL = "https://loginbp.common.ggbluefox.com/MajorLogin"
     headers = {
-        "Expect": "100-continue",
-        "Authorization": "Bearer",
-        "X-Unity-Version": "2018.4.11f1",
-        "X-GA": "v1 1",
-        "ReleaseVersion": "OB46",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Content-Length": str(len(Final_Payload)),
-        "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 9; SM-N975F Build/PI)",
-        "Host": "loginbp.common.ggbluefox.com",
-        "Connection": "close",
-        "Accept-Encoding": "gzip, deflate, br"
-    }
-
+    'Authorization': 'Bearer',  # تأكد من إضافة الـ Token هنا
+    'X-Unity-Version': '2018.4.11f',
+    'X-GA': 'v1 1',
+    'ReleaseVersion': 'OB47',
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Length': '16',
+    'User-Agent': 'Dalvik/2.1.0(Linux; U; Android 9; Redmi Note 5 MIUI/V11.0.3.0.PEIMIXM)',
+    'Host': 'clientbp.ggblueshark.com',
+    'Accept-Encoding': 'gzip'
+}
     async with httpx.AsyncClient(verify=False) as client:
         try:
             RESPONSE = await client.post(URL, headers=headers, data=Final_Payload)
@@ -146,12 +143,12 @@ async def start_likes(likes_uid):
 
         results = [result for result in results if result]
         
-        return jsonify({'msg': 'Account l will send 100 liks soon. Telegram Dev @V1P_YK and @BL_RX', 'results': results})
+        return jsonify({'msg': 'Done Sent Likes.', 'results': results})
     
     except Exception as e:
         return jsonify({'error': str(e)})
 
-@app.route('/likes/<int:id>')
+@app.route('/getlikes/<int:id>')
 async def checkband(id):
     likes_uid = id
     try:
